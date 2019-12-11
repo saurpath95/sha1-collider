@@ -1,4 +1,3 @@
-#! coding:utf-8
 import sys
 from hashlib import sha1
 from PIL import Image
@@ -10,12 +9,12 @@ def jpeg_comment(n):
     # Comment size can be only setted in 2 bytes
     assert n < 0xffff, "Oversized image data (up to 65535 bytes)."
     n += 2
-    return '\xff\xfe' + l2b(n>>8) + l2b(n & 0xff)
+    return b'\xff\xfe' + l2b(n>>8) + l2b(n & 0xff)
 
 
 def main():
     if len(sys.argv) != 3:
-        print "Usage: python collider.py <image1> <image2>"
+        print("Usage: python collider.py <image1> <image2>")
         sys.exit(1)
 
     img1 = open(sys.argv[1], "rb").read()
@@ -23,19 +22,19 @@ def main():
     
     # Check JPEG format
     if b2l(img1[:2]) != 0xffd8 or b2l(img2[:2]) != 0xffd8:
-        print "Image is not JPEG format."
+        print("Image is not JPEG format.")
         sys.exit(1)
 
     size1 = Image.open(sys.argv[1]).size
     size2 = Image.open(sys.argv[2]).size
-    print "Image size:", size1
+    print("Image size:", size1)
 
     # Resize the image if different sizes
     if size1 != size2:
         new = Image.open(sys.argv[2]).resize(size1)
         new.save("resized_" + sys.argv[2])
         img2 = open("resized_" + sys.argv[2], "rb").read()
-        print "Resized:", sys.argv[2]
+        print("Resized:", sys.argv[2])
 
 
     pdf_header = l2b(0x255044462D312E330A25E2E3CFD30A0A0A312030206F626A0A3C3C2F57696474682032203020522F4865696768742033203020522F547970652034203020522F537562747970652035203020522F46696C7465722036203020522F436F6C6F7253706163652037203020522F4C656E6774682038203020522F42697473506572436F6D706F6E656E7420383E3E0A73747265616D0A)
@@ -49,7 +48,7 @@ def main():
     prefix2 = pdf_header + jpg_header + collision_block2
 
 
-    data = ''
+    data = b''
     data += b'\x00' * 242
     data += jpeg_comment(8 + len(img1[2:]))
     data += b'\x00' * 8
@@ -104,7 +103,7 @@ def main():
     open(sys.argv[1].split('.')[0]+"-collision.pdf", "wb").write(outfile1)
     open(sys.argv[2].split('.')[0]+"-collision.pdf", "wb").write(outfile2)
 
-    print "Successfully Generated Collision PDF !!!"
+    print("Successfully Generated Collision PDF !!!")
     
     return
 
