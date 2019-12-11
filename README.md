@@ -14,7 +14,7 @@ Requirements
 Successfully Generated Collision PDF !!!
 
 #shasum a-collision.pdf
-4bd43d6e15b4b4a423a850afc148fb8df03a4f51  a-collision.pdf
+-4bd43d6e15b4b4a423a850afc148fb8df03a4f51  a-collision.pdf
 
 #shasum b-collision.pdf
-4bd43d6e15b4b4a423a850afc148fb8df03a4f51  b-collision.pdf
+-4bd43d6e15b4b4a423a850afc148fb8df03a4f51  b-collision.pdf
