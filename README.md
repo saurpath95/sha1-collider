@@ -3,7 +3,7 @@ Generate two PDFs with different contents but identical SHA1 hashes.
 
 # Usage
 ```sh
-$ python3 collider.py a.jpg b.jpg
+$ python3 collider.py ./sample/a.jpg ./sample/b.jpg
 ```
 Requirements
 - PIL / Pillow
